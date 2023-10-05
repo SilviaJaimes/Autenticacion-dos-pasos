@@ -2,6 +2,7 @@ using System.Reflection;
 using API.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Persistencia;
+using AspNetCoreRateLimit;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,8 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddAplicacionServices();
-builder.Services.ConfigureRateLimiting();
-builder.Services.ConfigureApiVersioning();
+builder.Services.ConfigureRateLimit();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -50,6 +50,8 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.UseHttpsRedirection();
+
+app.UseIpRateLimiting();
 
 app.UseAuthorization();
 

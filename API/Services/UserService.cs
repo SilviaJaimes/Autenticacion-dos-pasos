@@ -25,7 +25,7 @@ public class UserService : IUserService
             Usuario = registerDto.Usuario
         };
 
-        user.Password = _passwordHasher.HashPassword(user, registerDto.Password); //Encrypt password
+        user.Password = _passwordHasher.HashPassword(user, registerDto.Password);
 
         var existingUser = _unitOfWork.Users
                                     .Find(u => u.Usuario.ToLower() == registerDto.Usuario.ToLower())
@@ -51,5 +51,4 @@ public class UserService : IUserService
             return $"User {registerDto.Usuario} already registered.";
         }
     }
-    
 }

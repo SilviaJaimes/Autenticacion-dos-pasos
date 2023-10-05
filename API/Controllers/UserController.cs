@@ -4,7 +4,6 @@ using AutoMapper;
 using Dominio.Entities;
 using Dominio.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using VerificationProject.Services;
 
 namespace API.Controllers;
 public class UserController : BaseApiController

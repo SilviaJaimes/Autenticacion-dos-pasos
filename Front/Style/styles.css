@@ -15,16 +15,17 @@
 }
 
 .card {
-    box-shadow: 7px 7px 50px black;
-    background: rgba(241, 246, 248, 0.527);
+    box-shadow: 1px 1px 5px rgb(255, 255, 255);
+    background: rgb(255, 255, 255);
     color: rgb(0, 0, 0);
     border-radius: 25px;
     padding: 3%;
+    padding-top: 2%;
 }
 
 #form {
     font-family: 'Ubuntu', sans-serif;
-    font-size: 18px;
+    font-size: 20px;
 }
 
 .form-label {
@@ -35,14 +36,14 @@
 /* Botones */
 
 .btn {
-    background-color: rgb(59, 78, 90);
-    color: white;
-    box-shadow: 3px 3px 15px black;
+    background-color: rgb(114, 198, 250);
+    color: rgb(0, 0, 0);
+    box-shadow: 2px 2px 10px black;
 }
 
 .btn:hover {
-    background-color: rgb(194, 200, 204);
-    color: black;
+    background-color: rgb(109, 132, 148);
+    color: rgb(255, 255, 255);
 }
 
 #boton {
@@ -53,16 +54,14 @@
 }
 
 body {
-    background-image: url(../Img/5f97422d-de9d-4ba1-9801-1afc697a0e90.jpg);
-    background-repeat: no-repeat;
-    background-attachment:fixed;
-    background-size:100% 100%;
+    background-color: rgb(92, 158, 189);
 }
 
 h2 {
-    font-size: 45px;
+    font-size: 48px;
     text-align: center;
     font-family: 'Josefin Sans', sans-serif;
     padding: 5%;
+    padding-top: 2%;
 }
 

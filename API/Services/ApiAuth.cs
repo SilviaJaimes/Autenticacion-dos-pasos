@@ -2,7 +2,7 @@ using Dominio.Entities;
 using TwoFactorAuthNet;
 using TwoFactorAuthNet.Providers.Qr;
 
-namespace VerificationProject.Services;
+namespace API.Services;
 public class AuthService: IAuthService{
     private readonly IConfiguration _Conf;
     public AuthService(        
@@ -25,7 +25,7 @@ public class AuthService: IAuthService{
             new ImageChartsQrCodeProvider()   //* Creador del Qr
         );
 
-        string secret = tfa.CreateSecret(160); //* Crea una patron secreto de 160 bites
+        string secret = tfa.CreateSecret(160);
         u.Password = secret;
 
         var QR = tfa.GetQrCodeImageAsDataUri(
