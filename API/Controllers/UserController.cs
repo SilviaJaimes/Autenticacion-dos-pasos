@@ -28,14 +28,14 @@ public class UserController : BaseApiController
     [HttpGet("QR/{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]    
-    public async Task<ActionResult> GetQR(int id){        
-                    Console.WriteLine("ennnnnnnnnnnnnnnntro");
-
+    public async Task<ActionResult> FindFirst(int id){        
+        Console.WriteLine("ennnnnnnnnnnnnnnntro");
         try{
-                        Console.WriteLine("entro1");
+            Console.WriteLine("entro1");
+            Console.WriteLine("Valor de id: " + id);
 
-            User u = await unitofwork.Users.FindFirst(x => x.Id == id); 
-                                    Console.WriteLine("entro2");
+            User u = await unitofwork.Users.GetByIdAsync(id); 
+            Console.WriteLine(u);
 
             byte[] QR = _Auth.CreateQR(ref u);
             Console.WriteLine("entro3");
@@ -55,7 +55,7 @@ public class UserController : BaseApiController
     public async Task<ActionResult> Verify([FromBody] VerifyDto data){        
         try{
 
-            User u = await unitofwork.Users.FindFirst(x => x.Id == data.Id);
+            User u = await unitofwork.Users.GetByIdAsync(data.Id); 
             if(u.Password == null){
                 throw new ArgumentNullException(u.Password);
             }

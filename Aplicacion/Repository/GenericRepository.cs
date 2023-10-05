@@ -17,13 +17,28 @@ public class GenericRepository<T> : IGenericRepo<T> where T : BaseEntity
     }
 
     public async virtual Task<T> FindFirst(Expression<Func<T, bool>> expression)
+{   
+                Console.WriteLine("entroalmetodoe");
+
+    if (expression != null)
     {
-        if (expression != null){
-            var res = await _Entity.Where(expression).ToListAsync();
-            return res.First();
+                        Console.WriteLine(expression);
+
+        var res = await _Entity.FirstOrDefaultAsync(expression);
+        if (res != null)
+        {
+            Console.WriteLine("entroalmetodoe");
+            return res;
+            
         }
-        return await _Entity.FirstAsync();
     }
+
+    // Cambia este valor predeterminado según tu lógica de negocio.
+    // Para tipos de referencia (objetos), el valor predeterminado es null.
+    // Para tipos de valor (como int), el valor predeterminado es 0.
+    return default(T);
+}
+
 
     public virtual void Add(T entity)
     {
