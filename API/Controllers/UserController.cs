@@ -29,19 +29,13 @@ public class UserController : BaseApiController
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]    
     public async Task<ActionResult> FindFirst(int id){        
-        Console.WriteLine("ennnnnnnnnnnnnnnntro");
         try{
-            Console.WriteLine("entro1");
-            Console.WriteLine("Valor de id: " + id);
-
             User u = await unitofwork.Users.GetByIdAsync(id); 
-            Console.WriteLine(u);
 
             byte[] QR = _Auth.CreateQR(ref u);
-            Console.WriteLine("entro3");
             unitofwork.Users.Update(u);
             await unitofwork.SaveAsync();
-            return File(QR,"image/png"); //* se transforman los bytes en una imagen
+            return File(QR,"image/png");
         }
         catch (Exception ex){
             return BadRequest(ex.Message);
