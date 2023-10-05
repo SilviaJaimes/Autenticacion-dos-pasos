@@ -12,8 +12,8 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             builder.ToTable("user");
 
             builder.Property(p => p.Id)
-            .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn)
-            .IsRequired();
+                .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn)
+                .IsRequired();
 
             builder.Property(p => p.Usuario)
                 .HasColumnName("usuario")
@@ -32,12 +32,9 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
                 .HasColumnType("varchar")
                 .HasMaxLength(255);
 
-
             builder.Property(p => p.Fecha)
                 .HasColumnName("fecha")
                 .IsRequired();
-
-            
         }
     }
 }

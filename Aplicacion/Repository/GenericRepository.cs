@@ -16,21 +16,6 @@ public class GenericRepository<T> : IGenericRepo<T> where T : BaseEntity
         _context = context;
     }
 
-    public async virtual Task<T> FindFirst(Expression<Func<T, bool>> expression)
-    {   
-        if (expression != null)
-        {
-                            Console.WriteLine(expression);
-
-            var res = await _Entity.FirstOrDefaultAsync(expression);
-            if (res != null)
-            {
-                return res;
-            }
-        }
-        return default(T);
-    }
-
     public virtual void Add(T entity)
     {
         _context.Set<T>().Add(entity);
