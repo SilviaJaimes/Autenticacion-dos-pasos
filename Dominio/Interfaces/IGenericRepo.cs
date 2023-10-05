@@ -5,7 +5,6 @@ namespace Dominio.Interfaces;
 
 public interface IGenericRepo<T> where T : BaseEntity
 {
-    Task<T> FindFirst(Expression<Func<T, bool>> expression);
     Task<T> GetByIdAsync(int id);
     Task<IEnumerable<T>> GetAllAsync();
     IEnumerable<T> Find(Expression<Func<T, bool>> expression);
