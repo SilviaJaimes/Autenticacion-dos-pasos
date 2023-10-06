@@ -7,7 +7,7 @@ namespace Aplicacion.UnitOfWork;
 public class UnitOfWork : IUnitOfWork, IDisposable
 {
     private readonly ApiContext context;
-    private UserRepository _users;
+    private IUser _users;
 
     public UnitOfWork(ApiContext _context)
     {
