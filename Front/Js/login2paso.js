@@ -8,9 +8,17 @@ botonCodigo.addEventListener("click", function (e) {
     e.preventDefault();
     codigoVerificacion();
 });
+// Obtén la URL actual
+const currentUrl = window.location.href;
+const url = new URL(currentUrl);
+const queryString = url.search;
+const searchParams = new URLSearchParams(queryString);
+const usuario = searchParams.get('usuario');
+
+document.getElementById('username').value = usuario;
+
 
 async function codigoVerificacion() {
-    let inputUsuario = document.getElementById('username').value;
     let inputCodigo = document.getElementById('Codigo').value;
     console.log(inputUsuario);
     console.log(inputCodigo);

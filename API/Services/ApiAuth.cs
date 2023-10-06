@@ -102,7 +102,7 @@ public class AuthService: IAuthService{
         }
     }
     public bool VerifyCode(string secret, string code){   
-        var tfa = new TwoFactorAuth(_Conf["JWT:Issuer"],6,120,Algorithm.SHA256);
+        var tfa = new TwoFactorAuth(_Conf["JWT:Issuer"],6,30,Algorithm.SHA256);
         return tfa.VerifyCode(secret,code);
     }
 }

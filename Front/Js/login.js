@@ -29,7 +29,7 @@ async function verificacionEmail() {
         const response = await fetch(`${urlQr}`, config);
     
         if (response.status === 200) {
-            window.location.href = '../Front/Html/login2paso.html'; 
+            window.location.href = '../Front/Html/login2paso.html?usuario='+inputUsuario; 
         } else {
             console.error("La solicitud no fue exitosa. Estado:", response.status);
         }
