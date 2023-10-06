@@ -31,6 +31,11 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
                 .HasColumnName("password")
                 .HasColumnType("varchar")
                 .HasMaxLength(255);
+                
+            builder.Property(p => p.TwoFactorSecret)
+                .HasColumnName("twoFactorSecret")
+                .HasColumnType("varchar")
+                .HasMaxLength(255);
 
             builder.Property(p => p.Fecha)
                 .HasColumnName("fecha")

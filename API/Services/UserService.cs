@@ -1,3 +1,4 @@
+using System.Net.Mail;
 using API.Dtos;
 using API.Helpers;
 using Dominio.Entities;
@@ -51,4 +52,4 @@ public class UserService : IUserService
             return $"User {registerDto.Usuario} already registered.";
         }
     }
-}
+ }

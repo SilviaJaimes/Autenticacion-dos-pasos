@@ -42,6 +42,11 @@ namespace Persistencia.Data.Migrations
                         .HasColumnType("varchar")
                         .HasColumnName("password");
 
+                    b.Property<string>("TwoFactorSecret")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar")
+                        .HasColumnName("twoFactorSecret");
+
                     b.Property<string>("Usuario")
                         .IsRequired()
                         .HasMaxLength(50)

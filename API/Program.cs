@@ -48,6 +48,7 @@ using (var scope = app.Services.CreateScope())
 		_logger.LogError(ex, "Ocurrio un error durante la migracion");
 	}
 }
+app.UseCors("CorsPolicy");
 
 app.UseHttpsRedirection();
 

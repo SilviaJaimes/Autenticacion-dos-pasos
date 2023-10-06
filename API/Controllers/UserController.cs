@@ -3,6 +3,7 @@ using API.Services;
 using AutoMapper;
 using Dominio.Entities;
 using Dominio.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
@@ -13,8 +14,10 @@ public class UserController : BaseApiController
     private readonly IUserService _userService;
     private readonly IUnitOfWork unitofwork;
     private readonly  IMapper mapper;
+        private readonly IPasswordHasher<User> _passwordHasher;
 
-    public UserController(IUserService userService, IUnitOfWork unitofwork, IMapper mapper, ILogger<UserController> logger, IAuthService auth)
+
+    public UserController(IUserService userService, IUnitOfWork unitofwork, IMapper mapper, ILogger<UserController> logger, IAuthService auth,IPasswordHasher<User> passwordHasher)
     {
         
         this.unitofwork = unitofwork;
@@ -22,42 +25,46 @@ public class UserController : BaseApiController
         _userService = userService;
         _Logger = logger;
         _Auth = auth;
+        _passwordHasher = passwordHasher;
     }
 
-    [HttpGet("QR/{id}")]
+    [HttpPost("QR")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]    
-    public async Task<ActionResult> FindFirst(int id){        
-        try{
-            User u = await unitofwork.Users.GetByIdAsync(id); 
-
-            byte[] QR = _Auth.CreateQR(ref u);
-            unitofwork.Users.Update(u);
-            await unitofwork.SaveAsync();
-            return File(QR,"image/png");
+    public async Task<ActionResult> QR([FromBody] LoginDto data)
+    {        
+        try
+        {
+            User u = await unitofwork.Users.GetByUsernameAsync(data.Usuario);
+            var result = _passwordHasher.VerifyHashedPassword(u, u.Password, data.Password);
+            if (result != PasswordVerificationResult.Success)
+            {
+                return Unauthorized("La contraseña proporcionada no es válida.");
+            }
+            await _Auth.SendQRCodeToEmail(u,data); 
+            return Ok("Código QR enviado por correo electrónico.");
         }
-        catch (Exception ex){
+        catch (Exception ex)
+        {
             return BadRequest(ex.Message);
         }  
     }
 
-    [HttpGet("Verify")]
+
+    [HttpPost("Verify")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]    
     [ProducesResponseType(StatusCodes.Status400BadRequest)]    
-    public async Task<ActionResult> Verify([FromBody] VerifyDto data){        
+    public async Task<ActionResult> Verify([FromBody] VerifyDto data){ 
         try{
 
-            User u = await unitofwork.Users.GetByIdAsync(data.Id); 
-            if(u.Password == null){
-                throw new ArgumentNullException(u.Password);
+            User u = await unitofwork.Users.GetByUsernameAsync(data.Usuario);
+            if(u.TwoFactorSecret == null){
+                throw new ArgumentNullException(u.TwoFactorSecret);
             }
-            var isVerified = _Auth.VerifyCode(u.Password, data.Code);            
-
+            var isVerified = _Auth.VerifyCode(u.TwoFactorSecret, data.Code);            
             if(isVerified == true){
                 return Ok("authenticated!!");
             }
-
             return Unauthorized();
         }
         catch (Exception ex){
@@ -74,6 +81,8 @@ public class UserController : BaseApiController
         var entidad = await unitofwork.Users.GetAllAsync();
         return mapper.Map<List<UserDto>>(entidad);
     }
+
+
 
     [HttpGet("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]

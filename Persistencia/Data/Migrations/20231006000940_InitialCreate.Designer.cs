@@ -12,8 +12,8 @@ using Persistencia;
 namespace Persistencia.Data.Migrations
 {
     [DbContext(typeof(ApiContext))]
-    [Migration("20231004221140_InitialCreate03")]
-    partial class InitialCreate03
+    [Migration("20231006000940_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -44,6 +44,11 @@ namespace Persistencia.Data.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("varchar")
                         .HasColumnName("password");
+
+                    b.Property<string>("TwoFactorSecret")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar")
+                        .HasColumnName("twoFactorSecret");
 
                     b.Property<string>("Usuario")
                         .IsRequired()
