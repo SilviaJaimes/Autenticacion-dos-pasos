@@ -15,7 +15,7 @@ Este proyecto proporciona una API que permite a los usuarios registrarse, autent
 
 Una vez que el proyecto esté en marcha, puedes acceder a los diferentes endpoints disponibles:
 
-### Registro de Usuarios
+## 1. Registro de Usuarios
 
 **Endpoint**: `/register`
 
@@ -32,7 +32,7 @@ json
 
 Este endpoint permite a los usuarios registrarse en el sistema.
 
-## 1. Generación de Código QR:
+## 2. Generación de Código QR:
 
 **Endpoint**: `/QR`
 
@@ -47,7 +47,7 @@ Este endpoint permite a los usuarios registrarse en el sistema.
 
 Al proporcionar el nombre de usuario y contraseña correctos, el sistema enviará un código QR al correo electrónico registrado del usuario.
 
-## 2. Verificación de 2FA:
+## 3. Verificación de 2FA:
 
 **Endpoint**: `/Verify`
 
