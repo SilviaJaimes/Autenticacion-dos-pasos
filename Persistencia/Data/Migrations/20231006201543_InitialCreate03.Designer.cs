@@ -12,8 +12,8 @@ using Persistencia;
 namespace Persistencia.Data.Migrations
 {
     [DbContext(typeof(ApiContext))]
-    [Migration("20231006194838_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20231006201543_InitialCreate03")]
+    partial class InitialCreate03
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -20,11 +20,10 @@ document.getElementById('username').value = usuario;
 
 async function codigoVerificacion() {
     let inputCodigo = document.getElementById('Codigo').value;
-    console.log(inputUsuario);
     console.log(inputCodigo);
 
     let data = {
-        "usuario": inputUsuario,
+        "usuario": usuario,
         "Code": inputCodigo
     }
     console.log("entrooooooo");
