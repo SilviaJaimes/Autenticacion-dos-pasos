@@ -6,6 +6,9 @@ const botonLogin = document.getElementById('botonLogin');
 
 botonLogin.addEventListener("click", function (e) {
     e.preventDefault();
+
+    document.getElementById('cardContent').classList.add('hidden');
+    document.getElementById('loadingIndicator').classList.remove('hidden');
     verificacionEmail();
 });
 
@@ -27,6 +30,9 @@ async function verificacionEmail() {
     };
     try {
         const response = await fetch(`${urlQr}`, config);
+
+        document.getElementById('cardContent').classList.remove('hidden');
+        document.getElementById('loadingIndicator').classList.add('hidden');
     
         if (response.status === 200) {
             window.location.href = '../Front/Html/login2paso.html?usuario='+inputUsuario; 
@@ -34,7 +40,8 @@ async function verificacionEmail() {
             console.error("La solicitud no fue exitosa. Estado:", response.status);
         }
     } catch (error) {
+        document.getElementById('loadingIndicator').classList.add('hidden');
+        document.getElementById('cardContent').classList.remove('hidden');
         console.error("Error de red: ", error);
     }
-    
 }
