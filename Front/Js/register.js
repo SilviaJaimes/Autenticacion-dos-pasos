@@ -33,7 +33,7 @@ async function register() {
         const response = await fetch(`${urlRegister}`, config);
     
         if (response.status === 200) {
-            console.log("El registro fue exitoso.")
+            window.location.href = '../index.html'; 
         } else {
             console.error("La solicitud no fue exitosa. Estado:", response.status);
         }
